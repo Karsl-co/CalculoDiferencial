@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Math Guide | Precálculo y Cálculo</title>
+    <link rel="icon" href="img/logo.png">
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { background: #f5f5f7; color: #1d1d1f; line-height: 1.6; }
+
+        header {
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0,0,0,0.05); transition: transform 0.3s ease;
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 3rem; max-width: 1000px; margin: auto; }
+        .logo { font-weight: 700; font-size: 1.2rem; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: #1d1d1f; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;}
+        .nav-links a:hover { color: #0071e3; }
+
+
+        #hero {
+            height: 70vh;
+            background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.4)), 
+                        url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070') center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        #hero h1 { font-size: 3.8rem; letter-spacing: -2px; margin-bottom: 10px; color: #1d1d1f;}
+        #hero p { font-size: 1.2rem; color: #515154; max-width: 600px; }
+        
+        .cta-button {
+            margin-top: 1rem; padding: 1rem 2.5rem; font-size: 1rem; font-weight: 600;
+            border-radius: 30px; border: none; background: #1d1d1f; color: white;
+            cursor: pointer; text-decoration: none; transition: 0.3s;
+        }
+        .cta-button:hover { background: #0071e3; transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,113,227,0.2); }
+        .cta-secondary { background: #e5e5e7; color: #1d1d1f; }
+        .cta-secondary:hover { background: #d2d2d7; box-shadow: none; color: #1d1d1f; }
+
+
+        .container { max-width: 900px; margin: auto; padding: 4rem 2rem; }
+
+
+        .topic-card {
+            background: white; border-radius: 24px; padding: 2.5rem; margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+        }
+        .topic-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+        
+        .badge { background: #0071e3; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px; display: inline-block; }
+        .badge.hack { background: #ff3b30; } 
+        
+        h2 { font-size: 1.8rem; margin-bottom: 1rem; color: #1d1d1f; }
+        h3 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #0071e3; }
+        
+        .theory-box { background: #fbfbfd; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; border-left: 4px solid #0071e3; font-size: 0.95rem;}
+        .hack-box { background: #fff4f4; border-left-color: #ff3b30; } 
+        
+        .formula-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+        .formula-item { background: white; border: 1px solid #e5e5e7; padding: 1rem; border-radius: 12px; text-align: center; }
+        .example { background: #f2f7ff; padding: 1rem; border-radius: 12px; margin-top: 10px; font-size: 0.95rem; }
+
+        ul { list-style: none; margin-left: 10px; }
+        li { margin-bottom: 8px; position: relative; padding-left: 20px; }
+        li::before { content: "•"; color: #0071e3; font-weight: bold; position: absolute; left: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e5e5e7; }
+        th { background: #fbfbfd; color: #0071e3; border-radius: 8px 8px 0 0; }
+
+        #quiz-section { background: #fbfbfd; padding: 6rem 2rem; border-top: 1px solid #e5e5e7; }
+        .quiz-card {
+            max-width: 600px; margin: auto; background: white; padding: 3rem;
+            border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;
+        }
+        
+        .input-name {
+            width: 100%; padding: 1rem; border: 1px solid #d2d2d7; border-radius: 12px;
+            font-size: 1.1rem; margin: 1.5rem 0; outline: none; text-align: center; font-family: inherit;
+        }
+        .input-name:focus { border-color: #0071e3; box-shadow: 0 0 0 3px rgba(0,113,227,0.2); }
+
+        .option-btn {
+            display: block; width: 100%; padding: 1rem; margin-bottom: 0.8rem;
+            border: 1px solid #d2d2d7; border-radius: 12px; background: white;
+            cursor: pointer; text-align: left; font-size: 1rem; transition: 0.2s;
+        }
+        .option-btn:hover:not(:disabled) { background: #f5f5f7; border-color: #86868b; }
+        .option-btn.correct { background: #34c759; color: white; border-color: #34c759; }
+        .option-btn.incorrect { background: #ff3b30; color: white; border-color: #ff3b30; }
+
+        #leaderboard-table th { text-align: center; }
+        #leaderboard-table tr:nth-child(1) td { font-weight: bold; color: #e5a000; font-size: 1.1rem; }
+
+        .hidden { opacity: 0; transform: translateY(40px); transition: 0.8s ease-out; }
+        .show { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<header id="main-header">
+    <nav>
+        <div class="logo">MasterGuide | Pro</div>
+        <ul class="nav-links">
+            <li><a href="#teoria">Teoría Completa</a></li>
+            <li><a href="#quiz-section">Simulador</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="hero">
+    <h1>La Guía Definitiva.</h1>
+    <p>Desde las leyes básicas de potenciación y factorización completa, hasta los trucos más rápidos para dominar el Cálculo Diferencial.</p>
+    <a href="#teoria" class="cta-button">Ver Teoría</a>
+    <a href="#quiz-section" class="cta-button cta-secondary" style="margin-left:10px;">Ir al Simulador</a>
+</section>
+
+<div class="container" id="teoria">
+    
+    <div class="topic-card hidden">
+        <span class="badge">Tema 1</span>
+        <h2>1. Potenciación, Radicación y Logaritmos</h2>
+        
+        <h3>Leyes de Potenciación y Radicación</h3>
+        <div class="formula-grid">
+            <div class="formula-item">Producto: $a^n \cdot a^m = a^{n+m}$</div>
+            <div class="formula-item">Cociente: $\frac{a^n}{a^m} = a^{n-m}$</div>
+            <div class="formula-item">Raíz a Potencia: $\sqrt[n]{x^m} = x^{\frac{m}{n}}$</div>
+            <div class="formula-item">Exponente Negativo: $x^{-n} = \frac{1}{x^n}$</div>
+        </div>
+
+        <h3>Logaritmos (El exponente oculto)</h3>
+        <div class="theory-box">Definición: $\log_b(a) = c \iff b^c = a$. Sirven para bajar variables que están en los exponentes.</div>
+        <ul>
+            <li><b>Producto a Suma:</b> $\log_b(M \cdot N) = \log_b(M) + \log_b(N)$</li>
+            <li><b>Cociente a Resta:</b> $\log_b(\frac{M}{N}) = \log_b(M) - \log_b(N)$</li>
+            <li><b>Bajar exponente:</b> $\log_b(M^k) = k \cdot \log_b(M)$</li>
+        </ul>
+    </div>
+
+    <div class="topic-card hidden">
+        <span class="badge">Tema 2</span>
+        <h2>2. Factorización (Todos los grupos)</h2>
+        <div class="theory-box">Factorizar es convertir sumas y restas en multiplicaciones. Es vital para cancelar términos en límites y derivadas.</div>
+        
+        <ul>
+            <li><b>1. Factor Común:</b> Extraer lo que se repite. <br> $ax + ay = a(x + y)$</li>
+            <li><b>2. Diferencia de Cuadrados:</b> Dos términos restándose con raíz exacta. <br> $a^2 - b^2 = (a-b)(a+b)$</li>
+            <li><b>3. Trinomio Cuadrado Perfecto (TCP):</b> <br> $a^2 \pm 2ab + b^2 = (a \pm b)^2$</li>
+            <li><b>4. Trinomio $x^2 + bx + c$:</b> Buscar dos números que multiplicados den $c$ y sumados den $b$. <br> Ej: $x^2 + 5x + 6 = (x+3)(x+2)$</li>
+            <li><b>5. Suma/Diferencia de Cubos:</b> <br> $a^3 \pm b^3 = (a \pm b)(a^2 \mp ab + b^2)$</li>
+        </ul>
+    </div>
+
+    <div class="topic-card hidden">
+        <span class="badge">Tema 3</span>
+        <h2>3. Funciones Reales y Operaciones</h2>
+        <p>Dadas dos funciones $f(x)$ y $g(x)$, podemos operarlas:</p>
+        <div class="formula-grid">
+            <div class="formula-item"><b>Suma / Resta</b><br>$(f \pm g)(x) = f(x) \pm g(x)$</div>
+            <div class="formula-item"><b>División</b><br>$(\frac{f}{g})(x) = \frac{f(x)}{g(x)}$ <br><small>Siempre que $g(x) \neq 0$</small></div>
+            <div class="formula-item"><b>Composición</b><br>$(f \circ g)(x) = f(g(x))$ <br><small>Meter una función dentro de otra.</small></div>
+        </div>
+    </div>
+
+    <div class="topic-card hidden">
+        <span class="badge">Tema 4</span>
+        <h2>4. Inyectiva, Sobreyectiva y Biyectiva</h2>
+        <ul>
+            <li><b>Función Inyectiva (1 a 1):</b> Si $f(x_1) = f(x_2) \implies x_1 = x_2$. Gráficamente, ninguna línea horizontal corta la curva más de una vez.</li>
+            <li><b>Función Sobreyectiva:</b> El Rango es igual al Codominio. No sobra ningún valor en el eje Y.</li>
+            <li><b>Función Biyectiva:</b> Es Inyectiva y Sobreyectiva a la vez. <b>Solo estas funciones tienen inversa $f^{-1}(x)$.</b></li>
+        </ul>
+    </div>
+
+    <div class="topic-card hidden">
+        <span class="badge">Tema 5</span>
+        <h2>5. Clases de Funciones y sus Dominios</h2>
+        <div class="theory-box">El <b>Dominio</b> es el conjunto de valores $x$ que no "rompen" la función.</div>
+        <table>
+            <tr><th>Clase de Función</th><th>Regla para el Dominio</th></tr>
+            <tr><td><b>Polinomial</b> ($x^3 + 2x$)</td><td>Todos los reales ($D = \mathbb{R}$).</td></tr>
+            <tr><td><b>Racional</b> ($\frac{f(x)}{g(x)}$)</td><td>El denominador <b>jamás</b> puede ser cero: $g(x) \neq 0$.</td></tr>
+            <tr><td><b>Radical (par)</b> ($\sqrt{f(x)}$)</td><td>El interior no puede ser negativo: $f(x) \geq 0$.</td></tr>
+            <tr><td><b>Exponencial</b> ($e^x$ o $2^x$)</td><td>Generalmente todos los reales ($D = \mathbb{R}$).</td></tr>
+            <tr><td><b>Logarítmica</b> ($\ln(x)$)</td><td>El argumento debe ser estrictamente positivo: $x > 0$.</td></tr>
+        </table>
+    </div>
+
+    <div id="trucos" class="topic-card hidden">
+        <span class="badge hack">Bonus: Hack Rápido</span>
+        <h2>6. Trucos de Cálculo Diferencial</h2>
+        
+        <h3>Límites al Infinito ($x \to \infty$)</h3>
+        <p>Solo mira los grados (el mayor exponente) de arriba y abajo:</p>
+        <ul>
+            <li><b>Empate:</b> Divide los números que acompañan a las variables.</li>
+            <li><b>El de abajo gana:</b> El límite es $0$.</li>
+            <li><b>El de arriba gana:</b> El límite es $\infty$.</li>
+        </ul>
+
+        <h3>Regla de L'Hôpital (Para $0/0$)</h3>
+        <div class="theory-box hack-box">Si te da $\frac{0}{0}$, deriva el numerador, deriva el denominador por separado y vuelve a evaluar.</div>
+
+        <h3>Regla de la Potencia (Derivadas)</h3>
+        <p>$$f(x) = x^n \implies f'(x) = n \cdot x^{n-1}$$</p>
+    </div>
+
+</div>
+
+
+<section id="quiz-section">
+    <div class="quiz-card hidden">
+        
+        <div id="intro-screen">
+            <h2>Simulador Integral 📝</h2>
+            <p style="color: #86868b; margin-bottom: 1rem;">10 preguntas al azar sobre todos los temas. Ingresa tu nombre para el registro histórico.</p>
+            <input type="text" id="player-name" class="input-name" placeholder="Tu nombre..." autocomplete="off">
+            <button class="cta-button" onclick="startQuiz()" style="width: 100%;">Comenzar Prueba</button>
+            <button class="cta-button cta-secondary" onclick="showLeaderboard()" style="width: 100%; margin-top: 10px;">Ver Clasificación Top 5</button>
+        </div>
+
+        <div id="quiz-screen" style="display:none;">
+            <p id="progress" style="color:#86868b; font-weight:600; font-size:0.85rem; margin-bottom:10px; letter-spacing: 1px;">PREGUNTA 1 DE 10</p>
+            <h2 id="question-text" style="margin-bottom: 2rem;">Cargando...</h2>
+            <div id="options-container"></div>
+            <button id="next-btn" class="cta-button" style="display:none; width:100%; margin-top:1rem;" onclick="nextQuestion()">Siguiente Pregunta</button>
+        </div>
+        
+        <div id="result-screen" style="display:none;">
+            <h2>¡Prueba Finalizada!</h2>
+            <p id="result-message" style="color:#86868b;"></p>
+            <h1 style="color:#0071e3; font-size:4.5rem; margin:10px 0; letter-spacing: -2px;" id="final-score">0/0</h1>
+            <button class="cta-button" onclick="showLeaderboard()" style="width: 100%;">Ver Tabla de Clasificación</button>
+            <button class="cta-button cta-secondary" onclick="resetToIntro()" style="width: 100%; margin-top: 10px;">Volver al Inicio</button>
+        </div>
+
+        <div id="leaderboard-screen" style="display:none;">
+            <h2>🏆 Top 5 Mejores</h2>
+            <table id="leaderboard-table">
+                <thead>
+                    <tr><th>Rango</th><th>Nombre</th><th>Puntaje</th></tr>
+                </thead>
+                <tbody id="leaderboard-body"></tbody>
+            </table>
+            <button class="cta-button" onclick="resetToIntro()" style="width: 100%;">Volver al Inicio</button>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        const header = document.getElementById('main-header');
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.transform = 'translateY(0)';
+        }
+        lastScroll = currentScroll;
+
+        document.querySelectorAll('.hidden').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
+                el.classList.add('show');
+            }
+        });
+    });
+
+
+    const bank = [
+
+        { q: "La expresión $\\sqrt[3]{x^6}$ equivale a:", o: ["$x^2$", "$x^{18}$", "$x^{1/2}$", "$x^3$"], a: 0 },
+        { q: "Si $\\log_2(32) = x$, el valor de $x$ es:", o: ["5", "16", "64", "4"], a: 0 },
+        { q: "Según las propiedades, $\\log(a^3)$ se puede reescribir como:", o: ["$3 \\cdot \\log(a)$", "$\\log(3a)$", "$\\log(a) + 3$", "$\\log(a)/3$"], a: 0 },
+        { q: "Simplificar $x^5 \\cdot x^{-2}$ da como resultado:", o: ["$x^3$", "$x^7$", "$x^{-10}$", "$\\frac{1}{x^3}$"], a: 0 },
+
+
+        { q: "El factor común de la expresión $6x^3 + 3x^2$ es:", o: ["$3x^2(2x + 1)$", "$3x(2x^2 + x)$", "$6x^2(x + 1)$", "$x^2(6x + 3)$"], a: 0 },
+        { q: "Factoriza la diferencia de cuadrados $x^2 - 49$:", o: ["$(x-7)(x+7)$", "$(x-49)(x+1)$", "$(x-7)^2$", "$(x+7)^2$"], a: 0 },
+        { q: "El trinomio $x^2 + 7x + 10$ se factoriza como:", o: ["$(x+5)(x+2)$", "$(x+7)(x+10)$", "$(x+10)(x-3)$", "$(x+3)(x+4)$"], a: 0 },
+        { q: "La factorización del Trinomio Cuadrado Perfecto $x^2 - 10x + 25$ es:", o: ["$(x-5)^2$", "$(x+5)^2$", "$(x-5)(x+5)$", "$(x-25)^2$"], a: 0 },
+
+
+        { q: "Si $f(x) = x^2$ y $g(x) = 2x$, la composición $(f \\circ g)(x)$ es igual a:", o: ["$4x^2$", "$2x^2$", "$x^2 + 2x$", "$2x^3$"], a: 0 },
+        { q: "Si $(f-g)(x)$ se realiza con $f(x) = 5x$ y $g(x) = 3x$, el resultado es:", o: ["$2x$", "$8x$", "$15x^2$", "$5/3 x$"], a: 0 },
+        { q: "Para que una función tenga inversa matemática ($f^{-1}$), obligatoriamente debe ser:", o: ["Biyectiva", "Sobreyectiva solamente", "Inyectiva solamente", "Polinomial"], a: 0 },
+        { q: "La 'prueba de la línea horizontal' sirve para comprobar gráficamente si una función es:", o: ["Inyectiva", "Sobreyectiva", "Racional", "Par"], a: 0 },
+        { q: "Si el Rango de una función es exactamente igual a su Codominio, se clasifica como:", o: ["Sobreyectiva", "Inyectiva", "Logarítmica", "Exponencial"], a: 0 },
+
+
+        { q: "Para hallar el dominio de $f(x) = \\frac{3}{x-5}$, la restricción correcta es:", o: ["$x \\neq 5$", "$x > 5$", "$x \\geq 5$", "$x = 5$"], a: 0 },
+        { q: "El dominio de una función polinomial como $f(x) = 4x^3 - 2x + 1$ es:", o: ["Todos los reales ($\\mathbb{R}$)", "$x > 0$", "$x \\neq 0$", "$x \\geq 1$"], a: 0 },
+        { q: "El dominio de una función radical de índice par $f(x) = \\sqrt{x-2}$ exige que:", o: ["$x \\geq 2$", "$x > 2$", "$x \\neq 2$", "$x \\leq 2$"], a: 0 },
+        { q: "El dominio de la función logarítmica $f(x) = \\ln(x+4)$ exige la inecuación estricta:", o: ["$x > -4$", "$x \\geq -4$", "$x \\neq -4$", "$x < -4$"], a: 0 },
+        { q: "El dominio de una función exponencial clásica como $f(x) = 2^x$ es:", o: ["Todos los reales ($\\mathbb{R}$)", "$x > 0$", "$x \\geq 0$", "$x \\neq 0$"], a: 0 },
+
+
+        { q: "Utilizando el truco de grados, el límite al infinito $\\lim_{x \\to \\infty} \\frac{3x^2}{5x^2}$ es:", o: ["$3/5$", "$0$", "$\\infty$", "$5/3$"], a: 0 },
+        { q: "Al evaluar $\\lim_{x \\to \\infty} \\frac{2x}{x^3 + 1}$, el de abajo gana, por ende el límite es:", o: ["0", "$\\infty$", "2", "Indefinido"], a: 0 },
+        { q: "La Regla de L'Hôpital se utiliza exclusivamente cuando al evaluar un límite obtenemos la forma indeterminada:", o: ["$0/0$ o $\\infty/\\infty$", "$1^\\infty$", "$0 \\cdot \\infty$", "$\\infty - \\infty$"], a: 0 },
+        { q: "Antes de derivar $f(x) = \\frac{7}{x^3}$, el truco algebraico es reescribirlo como:", o: ["$7x^{-3}$", "$(7x)^{-3}$", "$x^{-3}/7$", "No se puede reescribir"], a: 0 },
+        { q: "Aplicando la regla de la potencia, la derivada de $f(x) = 5x^3$ es:", o: ["$15x^2$", "$5x^2$", "$15x^4$", "$8x^2$"], a: 0 },
+        { q: "La derivada de la función lineal $f(x) = 14x$ es simplemente:", o: ["14", "14x", "0", "1"], a: 0 },
+        { q: "La derivada de una constante pura como $f(x) = 999$ es siempre:", o: ["0", "1", "999", "x"], a: 0 }
+    ];
+
+
+    let currentIdx = 0;
+    let score = 0;
+    let shuffled = [];
+    let playerName = "";
+    const questionsPerQuiz = 10;
+
+
+    const screens = {
+        intro: document.getElementById('intro-screen'),
+        quiz: document.getElementById('quiz-screen'),
+        result: document.getElementById('result-screen'),
+        leaderboard: document.getElementById('leaderboard-screen')
+    };
+
+    function switchScreen(screenName) {
+        Object.values(screens).forEach(screen => screen.style.display = 'none');
+        screens[screenName].style.display = 'block';
+    }
+
+    function resetToIntro() {
+        document.getElementById('player-name').value = '';
+        switchScreen('intro');
+        window.scrollTo({top: document.getElementById('quiz-section').offsetTop, behavior: 'smooth'});
+    }
+
+    function startQuiz() {
+        const input = document.getElementById('player-name').value.trim();
+        if (input === "") {
+            alert("Por favor, ingresa tu nombre antes de comenzar.");
+            return;
+        }
+        playerName = input;
+        
+
+        shuffled = [...bank].sort(() => Math.random() - 0.5).slice(0, questionsPerQuiz);
+        currentIdx = 0; 
+        score = 0;
+        
+        switchScreen('quiz');
+        showQuestion();
+    }
+
+    function showQuestion() {
+        const data = shuffled[currentIdx];
+        document.getElementById('progress').innerText = `PREGUNTA ${currentIdx + 1} DE ${shuffled.length}`;
+        document.getElementById('question-text').innerHTML = data.q;
+        document.getElementById('next-btn').style.display = 'none';
+        
+        const container = document.getElementById('options-container');
+        container.innerHTML = '';
+        
+
+        let opcionesConIndice = data.o.map((opt, i) => ({ text: opt, originalIndex: i }));
+        opcionesConIndice.sort(() => Math.random() - 0.5);
+
+        opcionesConIndice.forEach((optObj) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = optObj.text;
+            btn.onclick = () => check(btn, optObj.originalIndex, data.a, opcionesConIndice);
+            container.appendChild(btn);
+        });
+
+        MathJax.typesetPromise();
+    }
+
+    function check(btn, selectedOriginalIdx, correctOriginalIdx, opcionesMostradas) {
+        const btns = document.querySelectorAll('.option-btn');
+        btns.forEach(b => b.disabled = true);
+
+        if (selectedOriginalIdx === correctOriginalIdx) {
+            btn.classList.add('correct');
+            score++;
+        } else {
+            btn.classList.add('incorrect');
+            const indiceCorrecto = opcionesMostradas.findIndex(o => o.originalIndex === correctOriginalIdx);
+            btns[indiceCorrecto].classList.add('correct');
+        }
+        document.getElementById('next-btn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if (currentIdx < shuffled.length) {
+            showQuestion();
+        } else {
+            endQuiz();
+        }
+    }
+
+    function endQuiz() {
+        saveScore();
+        document.getElementById('result-message').innerText = `¡Bien hecho, ${playerName}!`;
+        document.getElementById('final-score').innerText = `${score} / ${shuffled.length}`;
+        switchScreen('result');
+    }
+
+    function saveScore() {
+        let leaderboard = JSON.parse(localStorage.getItem('mathLeaderboardPro')) || [];
+        leaderboard.push({ name: playerName, score: score });
+        
+        leaderboard.sort((a, b) => b.score - a.score);
+        
+        leaderboard = leaderboard.slice(0, 5);
+        localStorage.setItem('mathLeaderboardPro', JSON.stringify(leaderboard));
+    }
+
+    function showLeaderboard() {
+        const leaderboard = JSON.parse(localStorage.getItem('mathLeaderboardPro')) || [];
+        const tbody = document.getElementById('leaderboard-body');
+        tbody.innerHTML = '';
+
+        if (leaderboard.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3">Aún no hay puntajes registrados. ¡Sé el primero!</td></tr>';
+        } else {
+            const medallas = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+            leaderboard.forEach((entry, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-size: 1.5rem;">${medallas[index]}</td>
+                    <td style="font-weight: 500;">${entry.name}</td>
+                    <td><b>${entry.score}</b> / 10</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        switchScreen('leaderboard');
+    }
+
+    window.onload = () => {
+        setTimeout(() => { document.querySelector('.container').classList.add('show'); }, 100);
+    };
+</script>
+
+</body>
+</html>
